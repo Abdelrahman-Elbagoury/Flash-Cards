@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { robotoMedium } from '../utils/fonts';
 import CustomStatusBar from '../components/CustomStatusBar';
 import { addDeck } from '../actions';
+import NavigationService from '../navigation/navigationService';
 
 class AddDeck extends Component {
 
@@ -43,7 +44,7 @@ class AddDeck extends Component {
     }
 
     addDeck(title);
-    goToDecks();
+    goToDecks(title);
 
     this.resetState();
   };
@@ -54,7 +55,7 @@ class AddDeck extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
 
         <CustomStatusBar />
 
@@ -108,9 +109,10 @@ function mapDispatchToProps(dispatch, { navigation }) {
         questions: []
       }));
     },
-    goToDecks: () => navigation.navigate('Decks')
-  };
-
+    goToDecks: (id) => NavigationService.navigate('Deck', {
+      deckId: id
+    })
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDeck);
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   tagline: {
     fontSize: 16
   },
-  label:{
+  label: {
     marginTop: 32,
     marginBottom: 4,
     fontSize: 16,
